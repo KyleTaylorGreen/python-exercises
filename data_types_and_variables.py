@@ -1,7 +1,8 @@
 
 ###########################   Exercise 1  ################################
 """
-takes dictionary that has movie title and amount of days rented.
+takes dictionary that has movie title and amount of days rented and 
+calculates/returns the total cost.
 """
 def calculate_total(a_dict):
     total = 0
@@ -161,7 +162,7 @@ can_apply_offer(customer_info2) # can apply
 can_apply_offer(customer_info3) # can not apply
 
 
-###########################   Exercise 4  #################################
+###########################   Exercise 5  #################################
 # Create a variable that holds a boolean value for each of the following conditions:
 
 # - the password must be at least 5 characters
@@ -180,6 +181,9 @@ def no_whitespace(a_string):
         return False
 
 
+"""
+prompts user to enter a username and checks based on requirements.
+"""
 def input_username():
     satisfactory_username_flag = False
     while not satisfactory_username_flag:
@@ -198,11 +202,15 @@ def input_username():
             return username
 
 
+"""
+prompts user to enter password, checks if username is equal to password and meets
+password requirements.
+"""
 def input_password(username):
     satisfactory_password_flag = False
     while not satisfactory_password_flag:
         password = input("Enter a password.\n"\
-            "Requirements:\n " \
+            "Requirements:\n" \
             " - password can not be the same as username\n" \
             " - must not start or end with spaces\n" \
             " - password must be at least 5 characters\n" \
@@ -219,11 +227,16 @@ def input_password(username):
             return password
 
 
+"""
+prompts users to enter username and password with requirements.
+pass
+"""
 def input_username_password():
     username = input_username()
     password = input_password(username)
 
     return [username, password]
+
 
 
 input_username_password()
