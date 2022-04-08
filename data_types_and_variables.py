@@ -61,7 +61,7 @@ takes class information and student information, prints class availability for
 def student_scheduling(class_dict, student_dict):
     # for each student in the student info
     for students, student_info in student_dict.items():
-            print("\n" + student_info['Student Name'] + ":\n")
+            print(f"\n{student_info['Student Name']}:\n")
             
             # for each class in the class info
             for classes, class_info in class_dict.items():
