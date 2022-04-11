@@ -161,4 +161,66 @@ def cumulative_sum(numbers):
     return cumulative_list
 
 print(cumulative_sum([1,1,1,])) # > [1, 2, 3]
-print(cumulative_sum([1, 2, 3, 4])) # > []
+print(cumulative_sum([1, 2, 3, 4])) # > [1, 3, 6, 10]
+
+
+# Bonus 1) Create a function named twelveto24. It should accept a string in the 
+# format 10:45am or 4:30pm and return a string that is the representation of the 
+# time in a 24-hour format. Bonus write a function that does the opposite.
+
+def twelveto24(time_string):
+    pm_flag = False
+    
+    if 'p' in time_string.lower():
+        pm_flag = True
+    
+    stripped_time = [num for num in time_string if num.isdigit()]
+    stripped_string =  ""
+    for num in stripped_time:
+        stripped_string += num
+    
+    time_num = int(stripped_string)
+    
+    if pm_flag:
+        time_num += 1200
+        return str(time_num)
+    else:
+        return str(time_num)
+
+print()
+print(twelveto24('4:30pm'))
+print('\n')
+
+
+# Bonus 2) Create a function named col_index. It should accept a spreadsheet column 
+# name, and return the index number of the column.
+#    - col_index('A') returns 1
+#    - col_index('B') returns 2
+#    - col_index('AA') returns 27
+
+def col_index(column_label):
+    alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',\
+                'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    alpha_index = {}
+    index_num = 0
+
+    for n in range(len(alphabet)):
+        alpha_index[alphabet[n]] = n + 1
+
+    column_label = column_label[::-1].upper()
+    offset = 0
+
+    for x in range(0, len(column_label)):
+        if x > 0:
+            offset = (x * 26 ** x)
+        else:
+            offset = alpha_index[column_label[x]]
+        index_num += offset
+
+    print(f"column index: {index_num}")
+    return index_num
+
+col_index('A') # 1
+col_index('B') # 2
+col_index('AA') # 27
+
