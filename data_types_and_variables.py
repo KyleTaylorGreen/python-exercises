@@ -59,11 +59,11 @@ takes class information and student information, prints class availability for
 # each student 
 """
 def student_scheduling(class_dict, student_dict):
-    # for each student in the student info
+    # for each student in the student info dict
     for students, student_info in student_dict.items():
             print(f"\n{student_info['Student Name']}:\n")
             
-            # for each class in the class info
+            # for each class in the class info dict
             for classes, class_info in class_dict.items():
                 if class_info['Class full']:
                     print(f"Class {class_info['Class Name']} unavailable due to being full.")
@@ -76,6 +76,7 @@ def student_scheduling(class_dict, student_dict):
                 else:
                     print(f"Class {class_info['Class Name']} is available for registration")
             print()
+
 
 # dictionary of class test info
 class_dict = {

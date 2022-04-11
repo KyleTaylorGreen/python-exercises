@@ -86,7 +86,7 @@ print(negative_numbers)
 
 # Exercise 14 - use a list comprehension w/ a conditional in order to produce a list of numbers with 2 or more numerals
 
-two_or_more_numerals = [n for n in numbers if (n / 10) >= 1]
+two_or_more_numerals = [n for n in numbers if (n / 10) >= 1 or (n / 10) <= -1]
 print(two_or_more_numerals)
 
 # Exercise 15 - Make a variable named numbers_squared that contains the numbers list with each element squared. Output is [4, 9, 16, etc...]
@@ -107,10 +107,11 @@ print(numbers_plus_5)
 # BONUS Make a variable named "primes" that is a list containing the prime numbers in the numbers list. *Hint* you may want to make or find a helper function that determines if a given number is prime or not.
 
 def check_if_prime(number):
-    for i in range(2, number):
-        if number % i == 0:
-            return False
-    return True
+    if type(number) == type(int()):
+        for i in range(2, number):
+            if number % i == 0:
+                return False
+        return True
 
 primes = [n for n in numbers if check_if_prime(n) and n > 1]
 print(primes)
