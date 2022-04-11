@@ -200,17 +200,20 @@ print('\n')
 
 def col_index(column_label):
     
+    # creates dictionary with the format {'A': 1, 'B': 2, 'C': 3, ...}
     alpha_index = {}
     for num in range(26):
         alpha_index[(chr(ord('A') + num))] = num + 1
     index_num = 0
 
+    # reverses + capitalizes column label, makes it easier when doing math with indices
     column_label = column_label[::-1].upper()
     offset = 0
 
+    # the math/char conversion
     for x in range(0, len(column_label)):
         if x > 0:
-            offset = (x * 26 ** x)
+            offset = (alpha_index[column_label[x]] * 26 ** x)
         else:
             offset = alpha_index[column_label[x]]
         index_num += offset
@@ -221,4 +224,6 @@ def col_index(column_label):
 col_index('A') # 1
 col_index('B') # 2
 col_index('AA') # 27
+col_index('ZA') # 677
+col_index('BA') # 53
 
