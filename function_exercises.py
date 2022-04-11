@@ -199,13 +199,11 @@ print('\n')
 #    - col_index('AA') returns 27
 
 def col_index(column_label):
-    alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',\
-                'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    
     alpha_index = {}
+    for num in range(26):
+        alpha_index[(chr(ord('A') + num))] = num + 1
     index_num = 0
-
-    for n in range(len(alphabet)):
-        alpha_index[alphabet[n]] = n + 1
 
     column_label = column_label[::-1].upper()
     offset = 0
