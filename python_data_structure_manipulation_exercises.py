@@ -1,3 +1,4 @@
+from multiprocessing.sharedctypes import Value
 import statistics
 
 
@@ -124,7 +125,7 @@ students = [
 
 # 1) How many students are there?
 
-print(len(students)) # 14 students
+print(f"# of students: {len(students)}") # 14 students
 
 
 # 2) How many students prefer light coffee? For each type of coffee roast?
@@ -246,14 +247,13 @@ for student in students:
         for pet in student['pets']:
             total_age += pet['age']
 
-print(f"Avg age of pets of data science students: {total_age/pet_count} years old\n\n")
+avg_pet_age_data_science = round(total_age/pet_count, 2)
+
+print(f"Avg age of pets of data science students: {avg_pet_age_data_science} years old\n\n")
 
 
 
 # 10) What is most frequent coffee preference for data science students?
-def first_coffee_flavor(coffee_info):
-    for coffee_flavors in coffee_info:
-        return coffee_flavors
 
 
 coffee_pref = {}
@@ -267,29 +267,135 @@ for student in students:
             coffee_pref[student['coffee_preference']] += 1
 print()
 
-fav_coffee = [first_coffee_flavor(coffee_pref), coffee_pref[first_coffee_flavor(coffee_pref)]]
+highest_value = max(coffee_pref.values())
 
 
-for pref in coffee_pref:
-    print(f"{pref}: {coffee_pref[pref]}")
-    if fav_coffee[1] < coffee_pref[pref]:
-        fav_coffee = [pref, coffee_pref[pref]]
-print(f'\nAnswer: {fav_coffee[0]}')
-
+fav_flavor = [key for key, value in coffee_pref.items() if value == highest_value]
+print(f"Favorite flavor(s) of Data Science students: {fav_flavor}\n")
 
 # 11) What is the least frequent coffee preference for web development students?
 
 
+coffee_pref = {}
+
+for student in students:
+    if student['course'] == 'web development':
+        if student['coffee_preference'] not in coffee_pref:
+            print(student["coffee_preference"])
+            coffee_pref[student['coffee_preference']] = 1
+        else:
+            coffee_pref[student['coffee_preference']] += 1
+print()
+
+lowest_value = min(coffee_pref.values())
+
+least_fav_flavor = [key for key, value in coffee_pref.items() if value == lowest_value]
+print(f"Least favorite flavor(s) for web dev students: {least_fav_flavor}")
 
 
 # 12) What is the average grade for students with at least 2 pets?
+grade_total = 0
+student_count = 0
+
+for student in students:
+    if len(student['pets']) >= 2:
+        grade_total += statistics.mean(student['grades'])
+        student_count += 1
+
+average_grade = round(grade_total / student_count, 2)
+print(f"\nAverage grade of students with 2 or more pets: {average_grade}\n")
+
 # 13) How many students have 3 pets?
+
+students_with_three_pets = len([student for student in students if len(student['pets']) == 3])
+print(f"\n# of students with 3 pets: {students_with_three_pets}\n")
+
+
 # 14) What is the average grade for students with 0 pets?
+
+
+grades = [statistics.mean(student['grades']) for student in students \
+          if len(student['pets']) == 0]
+
+average_grade = round(statistics.mean(grades))
+print(f"\nAverage grade of students with 0 pets: {average_grade}\n")
+
+
 # 15) What is the average grade for web development students? data science students?
+
+
+def average_grade_by_course(course_string):
+
+    grades = [statistics.mean(student['grades']) for student in students \
+              if student['course'] == course_string]
+
+    average_grade = round(statistics.mean(grades))
+    print(f"\nAverage grade of students in {course_string}: {average_grade}\n")
+
+average_grade_by_course('web development') # 81.18
+average_grade_by_course('data science') # 84.68
+
+
+
 # 16) What is the average grade range (i.e. highest grade - lowest grade) for dark coffee drinkers?
+
+
+grade_ranges = [max(student['grades']) - min(student['grades']) \
+                for student in students \
+                if student['coffee_preference'] == 'dark']
+
+average_grade_range_dark = round(statistics.mean(grade_ranges), 2)
+print(f"\nAverage grade range for dark coffee drinkers: {average_grade_range_dark}\n")
+
+# Answer: 28.8
+
+
 # 17) What is the average number of pets for medium coffee drinkers?
+
+pet_data = [len(student['pets']) for student in students \
+            if student['coffee_preference'] == 'medium']
+
+average_pet_for_medium_coffee = round(statistics.mean(pet_data), 2)
+print(f"\nAverage # of pets for medium coffee drinkers: {average_pet_for_medium_coffee}\n")
+
+
 # 18) What is the most common type of pet for web development students?
+
+pet_dict = {}
+
+for student in students:
+    if student['course'] == 'web development':
+        for pet in student['pets']:
+            if pet['species'] not in pet_dict:
+                pet_dict[pet['species']] = 1
+            else:
+                pet_dict[pet['species']] += 1
+
+
+max_value = max(pet_dict.values())
+most_common_pet = [key for key, value in pet_dict.items() if value == max_value]
+
+print(f"\nMost common pet(s) for web dev students: {most_common_pet}\n")
+
+
 # 19) What is the average name length?
+
+total_length = 0
+
+name_lengths = [len("".join(student['student'])) for student in students]
+average_name_length = round(statistics.mean(name_lengths), 2)
+
+print(f"\nAverage length of names: {average_name_length} letters\n")
+
+
+
 # 20) What is the highest pet age for light coffee drinkers?
+
+pet_ages_light_coffee_drinkers = [[pet['age'] for pet in student['pets']] \
+                                for student in students \
+                                if student['coffee_preference'] == 'light']
+
+highest_age = max(max(pet_ages_light_coffee_drinkers))
+print(f"\nHighest pet age for light cofffee drinkers: {highest_age} years old\n")
 
 
