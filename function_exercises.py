@@ -248,13 +248,17 @@ print()
 accepts list of numbers and returns list that is a cumulative sum of numbers in the list passed
 '''
 def cumulative_sum(numbers):
+    # empty list to hold cumulative sums
     cumulative_list = []
     for n in range(len(numbers)):
+        # if n == 0 (first number), just append it
         if n == 0:
             cumulative_list.append(numbers[n])
         else:
+        # append current number + previous number
             cumulative_list.append(numbers[n] + cumulative_list[n-1])
     
+    # return list of cumulative sums
     return cumulative_list
 
 print(cumulative_sum([1,1,1,])) # > [1, 2, 3]
@@ -266,26 +270,30 @@ print(cumulative_sum([1, 2, 3, 4])) # > [1, 3, 6, 10]
 # time in a 24-hour format. Bonus write a function that does the opposite.
 
 def twelveto24(time_string):
-    pm_flag = False
     
+    # checks to see if p is in time for 'PM'
+    pm_flag = False
     if 'p' in time_string.lower():
         pm_flag = True
     
-    stripped_time = [num for num in time_string if num.isdigit()]
+    # create string of numbers from time string
     stripped_string =  ""
-    for num in stripped_time:
-        stripped_string += num
+    stripped_string = stripped_string.join([num for num in time_string if num.isdigit()])
     
+    # convert time string to int so we can do math
     time_num = int(stripped_string)
     
+    # add 1200 and return time if pm flag is true, otherwise return the same time
     if pm_flag:
         time_num += 1200
         return str(time_num)
     else:
         return str(time_num)
 
+
+# testing output
 print()
-print(twelveto24('4:30pm'))
+print(twelveto24('4:30pm')) # -> 1630
 print('\n')
 
 
@@ -300,36 +308,57 @@ print('\n')
 accepts spreadsheet column and returns the index number of the column
 '''
 def col_index(column_label):
-    
     # creates dictionary with the format {'A': 1, 'B': 2, 'C': 3, ...}
-    alpha_index = {}
     # loop for every letter in the alphabet
     # turn string into number that can be incremented, turned back into a string
-    # use resulting string as a key for alpha_index, set value to num + 1 (so 'A' == 1, 'B' == 2, etc.) 
+    # use resulting string as a key for alpha_index, set value to num + 1 (so 'A' == 1 instead of 'A' == 0, etc.) 
+    alpha_index = {}
     for num in range(26):
         alpha_index[(chr(ord('A') + num))] = num + 1
     
-
-    # reverses + capitalizes column label, makes it easier when doing math with indices
+    # reverses + capitalizes column label, "AB" -> "BA" so that column_label[0] == 'B', column_label[1] == 'A'
     # capitalized to match alpha_index keys
+
     column_label = column_label[::-1].upper()
 
     # the math/char conversion, set variable to hold index number sum of following loop.
     index_num = 0
     for x in range(len(column_label)):
         # column_lable[x] is the col label indexed by x from the range
-        # --> our dict alpha_index[column_label[x]] is the number value of the letter/column_label[x]
-        # A = 1, or (1 * 26 ** 0) # AA = 27 or ((1 * 26 ** 1) + (1 * 26 ** 0))
+        # --> our dict alpha_index[column_label[x]] is the number value of the letter(column_label[x])
         index_num += (alpha_index[column_label[x]] * 26 ** x)
-        
+
+        # equation: column_index = (Letter_number * 26 ** n) where n is place in label (one's place is 0, ten's place is 1, etc.)
+        # EX: 700 = 7 * 10**2      |      70 = 7 * 10**1      |       7 = 7 * 10**0
+        # --> 777 = (7 * 10**2)    +      (7 * 10**1)         +       (7 * 10**0)
+
+        # A = 1, or (1 * 26 ** 0)        AB = 28, or ((1 * 26 ** 1) + (2 * 26 ** 0))
+    
     # print and return index number
-    print(f"column index: {index_num}")
+    print(f"column index of {column_label[::-1]}: {index_num}")
     return index_num
 
 col_index('A') # 1
 col_index('B') # 2
 col_index('AA') # 27
-col_index('ZA') # 677
-col_index('BA') # 53
-col_index('ABC') # 731
+col_index('AB') # 28
+col_index('AZ') # 52
+col_index('AAA') # 703
+print(f"\nord A: {ord('A')}       ord B: {ord('B')}\n")
 
+
+'''
+returns index number for column label given. This function is ugly and a monstrosity made only to see how small I could get it. Maybe it's an ego thing.
+¯\_(ツ)_/¯
+'''
+def col_index2(column_label):
+    return sum([{chr(ord('A') + num): num + 1 for num in range(26)}[(column_label[::-1].upper())[x]] * 26 ** x for x in range(len(column_label))])
+    
+
+print(f"Column index of 'A': {col_index2('A')}") # 1
+print(f"Column index of 'B': {col_index2('B')}") # 2
+print(f"Column index of 'AA': {col_index2('AA')}") # 27
+print(f"Column index of 'AB': {col_index2('AB')}") # 28
+print(f"Column index of 'AZ': {col_index2('AZ')}") # 52
+print(f"Column index of 'AAA': {col_index2('AAA')}") # 703
+    
