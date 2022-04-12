@@ -1,38 +1,61 @@
 # 1) Define a function named is_two. It should accept one input and return True if 
 # the passed input is either the number or the string 2, False otherwise.
 
+
+'''
+returns True if 2 or '2', false otherwise
+'''
 def is_two(two):
+    # checks if 2 or '2', prints & returns true
     if two == 2 or two == '2':
         print('true\n')
         return True
+    # prints/returns false if not 2 or '2'
     else:
         print('false\n')
         return False
-    
+
+# testing function by calling with 2 and '2' 
 is_two(2)
 is_two('2')
+
+
+
 
 # 2) Define a function named is_vowel. It should return True if the passed string 
 # is a vowel, False otherwise.
 
+
+'''
+returns true and prints if a vowel is passed, returns false/not a vowel if a consonant is passed
+'''
 def is_vowel(a_letter):
+    # create list of vowels for comparison
     vowels = ['a', 'e', 'i', 'o', 'u']
+    
+    # converts any ints passed into a string so isalpha() can run properly
     a_letter = str(a_letter)
+
+
+    #checks if passed value is a letter and if it's only one character
     if a_letter.isalpha() and len(a_letter) == 1:
+        #checks if the letter is in the vowels list > if it's a vowel
         if a_letter.lower() in vowels:
             print('this is a vowel')
             return True
         else:
             print('not a vowel')
             return False
+    # invalid input if the argument is not a single alpha char
     else:
         print('invalid input')
         return False
     print()
 
-is_vowel(3)
-is_vowel('t')
-is_vowel('e')
+# testing the output to see if function works properly
+is_vowel(3)   # invalid input
+is_vowel('t') # not a vowel
+is_vowel('e') # is a vowel
 print()
 
 # 3) Define a function named is_consonant. It should return True if the passed 
@@ -40,56 +63,109 @@ print()
 # this.
 
 
+'''
+uses previous is_vowel function to check if input is a vowel, and returns the opposite value > consonant
+'''
 def is_consonant(a_string):
     return not is_vowel(a_string)
 
-print(is_consonant('t'))
+# testing function output
+print(is_consonant('t')) # not a vowel > true
+print()
+
 
 
 # 4) Define a function that accepts a string that is a word. The function should 
 # capitalize the first letter of the word if the word starts with a consonant.
 
-def capitalize_word(a_word):
-    if is_consonant(a_word[0]):
-        return a_word.capitalize()
-    else:
-        return a_word
 
-print(capitalize_word('hello'))
+"""
+accepts a string that is not a single character, uses previous is_consonant function to determine
+if the word starts with a consonant and returns a capitalized version of the string if it is.
+"""
+def capitalize_word(a_word):
+    # checks if argument is a string and is longer than a single character
+    if type(a_word) == type(str()) and len(a_word) > 1:
+        # checks if first letter of a_word is a consonant, returns capitalized word if true
+        if is_consonant(a_word[0]):
+            return a_word.capitalize()
+        else:
+            return a_word
+    # invalid input if argument is not a string or string is only one char
+    else:
+        print('invalid input')
+
+
+# testing function output
+print(capitalize_word('hello')) # > Hello
+print()
+
+
 
 # 5) Define a function named calculate_tip. It should accept a tip percentage 
 # (a number between 0 and 1) and the bill total, and return the amount to tip.
 
+
+"""
+
+"""
 def calculate_tip(tip_percent, bill_total):
-    total_tip = tip_percent * bill_total
-    return total_tip
+    # checks if tip percent is between 0 and 1
+    if tip_percent >= 0 and tip_percent <= 1:
+        # calculates & returns the tip amount based on bill_total and tip_percent
+        total_tip = tip_percent * bill_total
+        return total_tip
+
+# testing/formatting function output with formatted string
 print()
 print(f"Total tip: ${calculate_tip(.15, 75)}")
 print()
 
+
+
 # 6) Define a function named apply_discount. It should accept a original price, 
 # and a discount percentage, and return the price after the discount is applied.
 
+
+"""
+calculates and returns the price after discount based on original price and discount percentage
+"""
 def apply_discount(original_price, discount_percentage):
+    # calculates discount price, then returns it
     discount_price = original_price - (original_price * discount_percentage)
     return discount_price
 
-print(apply_discount(100, .75))
+# testing function output
+print(f"Price after discount: {apply_discount(100, .75)}")
 print()
+
+
 
 # 7) Define a function named handle_commas. It should accept a string that is 
 # a number that contains commas in it as input, and return a number as output.
 
+
+"""
+accepts string that's a number, returns number as int
+"""
 def handle_commas(number_string):
+    # remove commas, convert string to int and return it
     number_string = int(number_string.replace(',', ""))
     return number_string
 
-print(handle_commas('4,200'))
+# testing function output
+print(handle_commas('4,200')) # > 4200
 print()
+
+
 
 # 8) Define a function named get_letter_grade. It should accept a number and 
 # return the letter grade associated with that number (A-F).
 
+
+"""
+accepts number and returns corresponding letter grade (A - F)
+"""
 def get_letter_grade(number_grade):
     if number_grade >= 90 and number_grade <= 100:
         return 'A'
@@ -102,23 +178,35 @@ def get_letter_grade(number_grade):
     else:
         return 'F'
 
+# testing function output
 print()
-print(get_letter_grade(80))
+print(get_letter_grade(80)) # --> B
 print()
+
+
 
 # 9) Define a function named remove_vowels that accepts a string and returns a 
 # string with all the vowels removed.
 
+
+"""
+removes vowel from input string
+"""
 def remove_vowels(a_word):
+    # creates list of vowels to compare against
     vowels = ['a', 'e', 'i', 'o', 'u']
-    final_word = ""
-    final_letters = [letter for letter in a_word if letter not in vowels]
-    for letter in final_letters:
-        final_word += letter
+    # empty string for adding letters made in list comprehension
+    final_word = "" 
+    # creates list of characters to add to string, join it to final_word
+    final_word = final_word.join([letter for letter in a_word if letter not in vowels])
+    
     return final_word
 
-print(remove_vowels("That's crazy"))
+# testing output
+print(remove_vowels("That's crazy"))  # -> Tht's crzy
 print()
+
+
 
 # 10) Define a function named normalize_name. It should accept a string and return a valid python identifier, that is:
 # anything that is not a valid python identifier should be removed
@@ -130,26 +218,35 @@ print()
 #    - First Name will become first_name
 #    - % Completed will become completed
 
-
+'''
+takes input string and normalizes it based on the problem specifications
+'''
 def normalize_name(a_string):
-    final_letters = [letter.lower() for letter in a_string if letter.isdigit() or letter.isalpha() or letter == " "]
+    # creates list of characters if they are alpha, digit, or spaces
     final_word = ""
-    for letter in final_letters:
-        final_word += letter
-
-    #print(final_word)
+    final_word = final_word.join([letter.lower() for letter in a_string if letter.isdigit() \
+                                  or letter.isalpha() or letter == " "])
+    
+    # strips leading/trailing whitespace, inserts underscores to replace spaces
     final_word = final_word.strip()
     final_word = final_word.replace(" ", "_")
 
     return final_word
 
-print(normalize_name('Kyle'))
-print(normalize_name('Kyle Green'))
-print(normalize_name('% Completed'))
+print(normalize_name('Kyle'))        # -> kyle
+print(normalize_name('Kyle Green'))  # -> kyle_green
+print(normalize_name('% Completed')) # -> completed
+print()
+
+
 
 # 11) Write a function named cumulative_sum that accepts a list of numbers and
 # returns a list that is the cumulative sum of the numbers in the list.
 
+
+'''
+accepts list of numbers and returns list that is a cumulative sum of numbers in the list passed
+'''
 def cumulative_sum(numbers):
     cumulative_list = []
     for n in range(len(numbers)):
@@ -198,26 +295,34 @@ print('\n')
 #    - col_index('B') returns 2
 #    - col_index('AA') returns 27
 
+
+'''
+accepts spreadsheet column and returns the index number of the column
+'''
 def col_index(column_label):
     
     # creates dictionary with the format {'A': 1, 'B': 2, 'C': 3, ...}
     alpha_index = {}
+    # loop for every letter in the alphabet
+    # turn string into number that can be incremented, turned back into a string
+    # use resulting string as a key for alpha_index, set value to num + 1 (so 'A' == 1, 'B' == 2, etc.) 
     for num in range(26):
         alpha_index[(chr(ord('A') + num))] = num + 1
-    index_num = 0
+    
 
     # reverses + capitalizes column label, makes it easier when doing math with indices
+    # capitalized to match alpha_index keys
     column_label = column_label[::-1].upper()
-    offset = 0
 
-    # the math/char conversion
-    for x in range(0, len(column_label)):
-        if x > 0:
-            offset = (alpha_index[column_label[x]] * 26 ** x)
-        else:
-            offset = alpha_index[column_label[x]]
-        index_num += offset
-
+    # the math/char conversion, set variable to hold index number sum of following loop.
+    index_num = 0
+    for x in range(len(column_label)):
+        # column_lable[x] is the col label indexed by x from the range
+        # --> our dict alpha_index[column_label[x]] is the number value of the letter/column_label[x]
+        # A = 1, or (1 * 26 ** 0) # AA = 27 or ((1 * 26 ** 1) + (1 * 26 ** 0))
+        index_num += (alpha_index[column_label[x]] * 26 ** x)
+        
+    # print and return index number
     print(f"column index: {index_num}")
     return index_num
 
@@ -226,4 +331,5 @@ col_index('B') # 2
 col_index('AA') # 27
 col_index('ZA') # 677
 col_index('BA') # 53
+col_index('ABC') # 731
 
