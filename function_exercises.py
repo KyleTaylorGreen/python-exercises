@@ -15,9 +15,10 @@ def is_two(two):
         print('false\n')
         return False
 
-# testing function by calling with 2 and '2' 
-is_two(2)
-is_two('2')
+if __name__ == '__main__':
+    # testing function by calling with 2 and '2' 
+    is_two(2)
+    is_two('2')
 
 
 
@@ -52,11 +53,13 @@ def is_vowel(a_letter):
         return False
     print()
 
-# testing the output to see if function works properly
-is_vowel(3)   # invalid input
-is_vowel('t') # not a vowel
-is_vowel('e') # is a vowel
-print()
+
+if __name__ == '__main__':
+    # testing the output to see if function works properly
+    is_vowel(3)   # invalid input
+    is_vowel('t') # not a vowel
+    is_vowel('e') # is a vowel
+    print()
 
 # 3) Define a function named is_consonant. It should return True if the passed 
 # string is a consonant, False otherwise. Use your is_vowel function to accomplish 
@@ -69,9 +72,10 @@ uses previous is_vowel function to check if input is a vowel, and returns the op
 def is_consonant(a_string):
     return not is_vowel(a_string)
 
-# testing function output
-print(is_consonant('t')) # not a vowel > true
-print()
+if __name__ == '__main__':
+    # testing function output
+    print(is_consonant('t')) # not a vowel > true
+    print()
 
 
 
@@ -85,7 +89,7 @@ if the word starts with a consonant and returns a capitalized version of the str
 """
 def capitalize_word(a_word):
     # checks if argument is a string and is longer than a single character
-    if type(a_word) == type(str()) and len(a_word) > 1:
+    if type(a_word) == str and len(a_word) > 1:
         # checks if first letter of a_word is a consonant, returns capitalized word if true
         if is_consonant(a_word[0]):
             return a_word.capitalize()
@@ -95,10 +99,10 @@ def capitalize_word(a_word):
     else:
         print('invalid input')
 
-
-# testing function output
-print(capitalize_word('hello')) # > Hello
-print()
+if __name__ == '__main__':
+    # testing function output
+    print(capitalize_word('hello')) # > Hello
+    print()
 
 
 
@@ -116,10 +120,11 @@ def calculate_tip(tip_percent, bill_total):
         total_tip = tip_percent * bill_total
         return total_tip
 
-# testing/formatting function output with formatted string
-print()
-print(f"Total tip: ${calculate_tip(.15, 75)}")
-print()
+if __name__ == '__main__':
+    # testing/formatting function output with formatted string
+    print()
+    print(f"Total tip: ${calculate_tip(.15, 75)}")
+    print()
 
 
 
@@ -135,9 +140,10 @@ def apply_discount(original_price, discount_percentage):
     discount_price = original_price - (original_price * discount_percentage)
     return discount_price
 
-# testing function output
-print(f"Price after discount: {apply_discount(100, .75)}")
-print()
+if __name__ == '__main__':
+    # testing function output
+    print(f"Price after discount: {apply_discount(100, .75)}")
+    print()
 
 
 
@@ -148,14 +154,22 @@ print()
 """
 accepts string that's a number, returns number as int
 """
+
+
 def handle_commas(number_string):
     # remove commas, convert string to int and return it
-    number_string = int(number_string.replace(',', ""))
+    number_string = float(number_string.replace(',', ""))
     return number_string
 
-# testing function output
-print(handle_commas('4,200')) # > 4200
-print()
+def handle_dollar_sign_commas(number_string):
+    number_string = number_string.replace('$', "")
+    number_string = handle_commas(number_string)
+    return number_string
+
+if __name__ == '__main__':
+    # testing function output
+    print(handle_commas('4,200')) # > 4200
+    print()
 
 
 
@@ -178,10 +192,11 @@ def get_letter_grade(number_grade):
     else:
         return 'F'
 
-# testing function output
-print()
-print(get_letter_grade(80)) # --> B
-print()
+if __name__ == '__main__':
+    # testing function output
+    print()
+    print(get_letter_grade(80)) # --> B
+    print()
 
 
 
@@ -202,9 +217,10 @@ def remove_vowels(a_word):
     
     return final_word
 
-# testing output
-print(remove_vowels("That's crazy"))  # -> Tht's crzy
-print()
+if __name__ == '__main__':
+    # testing output
+    print(remove_vowels("That's crazy"))  # -> Tht's crzy
+    print()
 
 
 
@@ -217,6 +233,7 @@ print()
 #    - Name will become name
 #    - First Name will become first_name
 #    - % Completed will become completed
+
 
 '''
 takes input string and normalizes it based on the problem specifications
@@ -233,10 +250,11 @@ def normalize_name(a_string):
 
     return final_word
 
-print(normalize_name('Kyle'))        # -> kyle
-print(normalize_name('Kyle Green'))  # -> kyle_green
-print(normalize_name('% Completed')) # -> completed
-print()
+if __name__ == '__main__':
+    print(normalize_name('Kyle'))        # -> kyle
+    print(normalize_name('Kyle Green'))  # -> kyle_green
+    print(normalize_name('% Completed')) # -> completed
+    print()
 
 
 
@@ -261,8 +279,10 @@ def cumulative_sum(numbers):
     # return list of cumulative sums
     return cumulative_list
 
-print(cumulative_sum([1,1,1,])) # > [1, 2, 3]
-print(cumulative_sum([1, 2, 3, 4])) # > [1, 3, 6, 10]
+
+if __name__ == '__main__':
+    print(cumulative_sum([1,1,1,])) # > [1, 2, 3]
+    print(cumulative_sum([1, 2, 3, 4])) # > [1, 3, 6, 10]
 
 
 # Bonus 1) Create a function named twelveto24. It should accept a string in the 
@@ -290,11 +310,11 @@ def twelveto24(time_string):
     else:
         return str(time_num)
 
-
-# testing output
-print()
-print(twelveto24('4:30pm')) # -> 1630
-print('\n')
+if __name__ == '__main__':
+    # testing output
+    print()
+    print(twelveto24('4:30pm')) # -> 1630
+    print('\n')
 
 
 # Bonus 2) Create a function named col_index. It should accept a spreadsheet column 
@@ -328,7 +348,7 @@ def col_index(column_label):
         # --> our dict alpha_index[column_label[x]] is the number value of the letter(column_label[x])
         index_num += (alpha_index[column_label[x]] * 26 ** x)
 
-        # equation: column_index = (Letter_number * 26 ** n) where n is place in label (one's place is 0, ten's place is 1, etc.)
+        # equation: column_index for each letter = (Letter_number * 26 ** n) where n is place in label (one's place is 0, ten's place is 1, etc.)
         # EX: 700 = 7 * 10**2      |      70 = 7 * 10**1      |       7 = 7 * 10**0
         # --> 777 = (7 * 10**2)    +      (7 * 10**1)         +       (7 * 10**0)
 
@@ -338,13 +358,14 @@ def col_index(column_label):
     print(f"column index of {column_label[::-1]}: {index_num}")
     return index_num
 
-col_index('A') # 1
-col_index('B') # 2
-col_index('AA') # 27
-col_index('AB') # 28
-col_index('AZ') # 52
-col_index('AAA') # 703
-print(f"\nord A: {ord('A')}       ord B: {ord('B')}\n")
+if __name__ == '__main__':
+    col_index('A') # 1
+    col_index('B') # 2
+    col_index('AA') # 27
+    col_index('AB') # 28
+    col_index('AZ') # 52
+    col_index('AAA') # 703
+    print(f"\nord A: {ord('A')}       ord B: {ord('B')}\n")
 
 
 '''
@@ -353,12 +374,11 @@ returns index number for column label given. This function is ugly and a monstro
 '''
 def col_index2(column_label):
     return sum([{chr(ord('A') + num): num + 1 for num in range(26)}[(column_label[::-1].upper())[x]] * 26 ** x for x in range(len(column_label))])
-    
 
-print(f"Column index of 'A': {col_index2('A')}") # 1
-print(f"Column index of 'B': {col_index2('B')}") # 2
-print(f"Column index of 'AA': {col_index2('AA')}") # 27
-print(f"Column index of 'AB': {col_index2('AB')}") # 28
-print(f"Column index of 'AZ': {col_index2('AZ')}") # 52
-print(f"Column index of 'AAA': {col_index2('AAA')}") # 703
-    
+if __name__ == '__main__':
+    print(f"Column index of 'A': {col_index2('A')}") # 1
+    print(f"Column index of 'B': {col_index2('B')}") # 2
+    print(f"Column index of 'AA': {col_index2('AA')}") # 27
+    print(f"Column index of 'AB': {col_index2('AB')}") # 28
+    print(f"Column index of 'AZ': {col_index2('AZ')}") # 52
+    print(f"Column index of 'AAA': {col_index2('AAA')}") # 703
